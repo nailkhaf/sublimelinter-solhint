@@ -2,9 +2,15 @@ from SublimeLinter.lint import Linter  # or NodeLinter, PythonLinter, ComposerLi
 
 
 class __class__(Linter):
-    cmd = '__cmd__'
-    regex = r''
-    multiline = False
+    cmd = 'npx solhint -f visualstudio ${file}'
+    tempfile_suffix = "-"
+    regex = (
+        r'^.+?\((?P<line>\d+),(?P<col>\d+)\): '
+        r'(.?(?P<warning>warning)|(?P<error>error)).+?'
+        r':(?P<message>.+)'
+    )
+    multiline = True
+    name = 'solhint'
     defaults = {
-        'selector': 'source.python'
+        'selector': 'source.solidity'
     }
